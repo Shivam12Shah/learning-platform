@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Course from "./Course";
 
 const Home = () => {
+
+
+  const fetchdata = async()=>{
+    try {
+       
+    } catch (error) {
+      
+    }
+  }
+
+  useEffect(()=>{
+
+    fetchdata()
+  },[])
+
   return (
     <div className="herodiv  py-2">
       <div className="herodiv flex text-[#8B77E8] my-16 px-32">
