@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* #8B77E8 base color */
+/* #CDC2FF second color */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: gilroy;
+    
+}
+.logomainheading{
+    font-family: "Dancing Script", cursive;
+    font-weight: 500;
+    font-size: 30px;
+}
+body{
+    outline: 1px solid green !important ;
+}
