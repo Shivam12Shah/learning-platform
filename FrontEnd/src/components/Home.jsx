@@ -1,25 +1,16 @@
-import React, { useEffect } from "react";
-import Course from "./Course";
-
+import React, { useContext, useEffect } from "react";
+import Navbar from "../Utils/Navbar";
+import axios from "../api/Axios"
+import { loginContext } from "../context/Logincontext";
 const Home = () => {
 
 
-  const fetchdata = async()=>{
-    try {
-       
-    } catch (error) {
-      
-    }
-  }
-
-  useEffect(()=>{
-
-    fetchdata()
-  },[])
+  const {login} = useContext(loginContext)
+  console.log(login);
 
   return (
-    <div className="herodiv  py-2">
-      <div className="herodiv flex text-[#8B77E8] my-16 px-32">
+    <div className="px-20 w-full ">
+     <div className="herodiv flex text-[#8B77E8] my-16 px-10">
         <div className="left flex flex-col items-start justify-center w-[35%]">
           <h3 className="text-5xl font-semibold">
             Unlock Your Potential with Cutting-Edge Learning{" "}
@@ -39,8 +30,6 @@ const Home = () => {
           />
         </div>
       </div>
-
-      <Course />
     </div>
   );
 };

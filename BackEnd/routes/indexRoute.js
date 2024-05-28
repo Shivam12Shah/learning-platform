@@ -1,22 +1,29 @@
 const express = require("express");
 const router = express.Router();
+
 const {
   homepage,
+  currentuser,
   usersignup,
-  usersignin,
   usersignout,
-  currentUser,
-} = require("../controller/indexController");
-const { isAuthenticated } = require("../middleware/auth");
+  usersignin,
+} = require("../controllers/indexcontroller");
 
-router.get("/", isAuthenticated ,homepage);
+const { isAuthenticated } = require("../middlewares/auth");
 
-router.post("/user", isAuthenticated ,currentUser);
+router.get("/", isAuthenticated,homepage);
 
+//post student is logged in hai ki nahi  /student
+router.post("/user", isAuthenticated, currentuser);
+
+//post user sign up
 router.post("/user/signup", usersignup);
 
+//post user sign in   /studen/signin 
 router.post("/user/signin", usersignin);
 
-router.get("/user/signout", isAuthenticated ,usersignout);
+router.get("/user/signout", isAuthenticated, usersignout);
+
+
 
 module.exports = router;

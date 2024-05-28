@@ -1,47 +1,57 @@
-require("dotenv").config({path:"./.env"})
 const express = require("express")
 const cors = require("cors")
 
 const app = express()
-app.use(cors())
+const bodyParser = require("body-parser")
 
-require("./models/database").connectDatabase()
+//dotnev
+require("dotenv").config()
 
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
 
-//logger 
+//logger
 const logger = require("morgan")
-app.use(logger("tiny"))
+app.use(logger('tiny'))
 
-
-//body parser
+// body parser
 app.use(express.json())
-app.use(express.urlencoded({extended:false}))
-
-// /session and cookesis
+app.use(express.urlencoded({ extended: false }))
 
 
+//session cookies
 const session = require("express-session")
-const cookieparser = require("cookie-parser")
-
+const cookiesParser = require("cookie-parser")
 app.use(session({
-    resave:true,
-    saveUninitialized:true,
-    secret:process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    secret: process.env.SESSION_SECRET
 }))
+app.use(cookiesParser())
 
-app.use(cookieparser())
+// dbb connected 
+require("./dbconnection/connectDb").dbConnectio()
 
-// routes
-app.use("/", require("./routes/indexRoute"))
+const ErorrHander = require("./utils/errorhandels")
+const fileUpload = require("express-fileupload")
+app.use(fileUpload())
 
-//eroor handler
 
-const ErrorHandler = require("./utils/ErrorHnadler")
-app.all("*", (req, res,next)=>{
-    next(new ErrorHandler(`Requested URL Not Found ${req.url}`, 404))
+const { genratedErrors } = require("./middlewares/error")
+
+
+app.use("/", require("./routes/indexroute"))
+
+
+
+
+app.all("*", (req, res, next) => {
+    next(new ErorrHander(`requested url not found ${req.url}`, 404))
 })
-const { genratedErros } = require("./middleware/error")
+app.use(genratedErrors)
 
-app.use(genratedErros)
-
-app.listen( process.env.PORT, console.log(`Server is Running PORT ${process.env.PORT}`))
+app.listen(process.env.PORT, () => {
+    console.log("server is running port ", process.env.PORT);
+})
