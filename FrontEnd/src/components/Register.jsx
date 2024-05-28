@@ -59,7 +59,7 @@ const Register = () => {
         setLogin(false)
         
       }
-      console.log("Form submitted");
+      console.log("Form  submitted");
 
     }
   };
