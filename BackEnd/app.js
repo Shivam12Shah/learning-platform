@@ -1,10 +1,8 @@
 const express = require("express")
 const cors = require("cors")
-
 const app = express()
-const bodyParser = require("body-parser")
 
-//dotnev
+// //dotnev
 require("dotenv").config()
 
 app.use(cors({
@@ -19,7 +17,6 @@ app.use(logger('tiny'))
 // body parser
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-
 
 //session cookies
 const session = require("express-session")
@@ -43,6 +40,7 @@ const { genratedErrors } = require("./middlewares/error")
 
 
 app.use("/", require("./routes/indexroute"))
+app.use("/", require("./routes/courseroute"))
 
 
 

@@ -1,3 +1,4 @@
+
 exports.genratedErrors = (err, req, res, next)=>{
     const statusCode = err.statusCode || 500;
 
@@ -7,6 +8,6 @@ exports.genratedErrors = (err, req, res, next)=>{
 
     res.status(statusCode).json({
         message:err.message,
-        errName:err.name
+        errName:err.name,     
     })
 }

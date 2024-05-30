@@ -6,14 +6,14 @@ import Login from "../components/Login";
 import Courses from "../components/Courses";
 import Contact from "../components/Contact";
 import Register from "../components/Register";
-import axios from "../api/Axios"
 import { loginContext } from "../context/Logincontext";
+import Addcourse from "../components/Addcourse";
 
 const Router = () => {
-  const [auth, setauth] = useState(false);
+  // const [auth, setauth] = useState(false);
 
   const {login} = useContext(loginContext)
-console.log(login);
+// console.log(login);
   return (
     <Routes>
       <Route path="/"  element={login ? <Home /> : <Navigate to={`/login`} />} />
@@ -26,6 +26,10 @@ console.log(login);
       <Route
         path="/courses"
         element={login ? <Courses /> : <Navigate to={`/login`} />}
+      />
+       <Route
+        path="/addcourse"
+        element={login ? <Addcourse /> : <Navigate to={`/login`} />}
       />
       <Route
         path="/contact"

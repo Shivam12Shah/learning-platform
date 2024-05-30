@@ -27,10 +27,20 @@ const Logincontext = (props) => {
         }
     }
 
+    const logedinuser = async()=>{
+        try {
+            const response = await axios.post("/user")
+            setUser(response.data.student.admin)
+        } catch (error) {
+            console.log(error);
+            setUser(null)
+        }
+    }
    
 
     useEffect(() => {
          userloggedin()
+         logedinuser()
     }, [login])
 
     return (

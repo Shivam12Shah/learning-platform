@@ -52,6 +52,10 @@ const studentModel = new mongoose.Schema({
             "please provide a  longer password"
         ]
     },
+    admin:{
+        type:Boolean,
+        default:false
+    }
 
 }, {
     timestamps:true

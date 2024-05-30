@@ -6,7 +6,7 @@ const Home = () => {
 
 
   const {login} = useContext(loginContext)
-  console.log(login);
+  // console.log();
 
   return (
     <div className="px-20 w-full ">
