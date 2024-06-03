@@ -1,6 +1,7 @@
-const { log } = require("console");
+
 const { catchAsyncErrors } = require("../middlewares/catchAsyncError");
 const courseModel = require("../Models/CourseModel")
+const lectureModel = require("../Models/lectureModel")
 const imagekit = require("../utils/imagekit").intiImagekit()
 const path = require("path")
 
@@ -69,5 +70,32 @@ exports.addcourseimage = catchAsyncErrors(async(req, res, next)=>{
     res.status(200).json({
         success:true,
         message:"course image uploded succefully"
+    })
+})
+
+
+exports.addlecture = catchAsyncErrors(async(req, res, next)=>{
+    const course = await courseModel.findById(req.params.id)
+    const file = req.files.lecturevideo;
+
+    const modifyFileName = `lecturevideo-${Date.now()}${path.extname(file.name)}`
+    const {fileId , url} = await imagekit.upload({
+        file : file.data,
+        fileName : modifyFileName,
+    })
+    lecturevideo = {fileId, url}
+    const newlecture = await new lectureModel({
+        lecturevideo,
+        lecturename:req.body.lecturename,
+        description:req.body.description,
+        coursename:course._id
+    })
+
+    await newlecture.save()
+    course.lectures.push(newlecture._id)
+    await course.save()
+    res.status(200).json({
+        success:true,
+        message:"lecture video uploded succefully"
     })
 })

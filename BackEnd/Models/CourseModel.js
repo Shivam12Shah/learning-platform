@@ -33,8 +33,13 @@ const courseSchema = new mongoose.Schema({
             fileId:'',
             url : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'
         }
-
-    }
+    },
+    lectures:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Lecture"
+        }
+    ]
     
 },{timestamps:true})
 

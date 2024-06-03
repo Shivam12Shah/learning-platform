@@ -11,7 +11,7 @@ const Addcourse = () => {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState(null);
-  console.log(image);
+  // console.log(image);
   const fileInputRef = useRef();
 
   const handleImageChange = (event) => {
@@ -39,14 +39,11 @@ const Addcourse = () => {
     }
   };
 
-
-
-
   return (
-    <div className="w-full h-screen flex p-20 gap-5 ">
-      <div className="courseform w-[60%]">
-        <div className="heading text-2xl mb-5 font-semibold">
-          Add Course Details{" "}
+    <div className="w-full h-screen flex p-20 gap-10 ">
+      <div className="courseform w-[50%]">
+        <div className="heading text-[#8B77E8] text-2xl mb-5 font-semibold">
+          Add Course Details
         </div>
         <form
           onSubmit={handleSubmit}
@@ -54,35 +51,35 @@ const Addcourse = () => {
           enctype="multipart/form-data"
         >
           <input
-            className="bg-slate-100 w-full p-2"
+            className="bg-slate-100 w-full p-2 rounded-md"
             type="text"
             placeholder="Course Name"
             value={coursename}
             onChange={(e) => setCoursename(e.target.value)}
           />
           <input
-            className="bg-slate-100 w-full p-2"
+            className="bg-slate-100 w-full p-2 rounded-md"
             type="text"
             placeholder="Course Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
           <input
-            className="bg-slate-100 w-full p-2"
+            className="bg-slate-100 w-full p-2 rounded-md"
             type="text"
             placeholder="Course author"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
           />
           <input
-            className="bg-slate-100 w-full p-2"
+            className="bg-slate-100 w-full p-2 rounded-md"
             type="text"
             placeholder="Course category "
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           />
           <input
-            className="bg-slate-100 w-full p-2"
+            className="bg-slate-100 w-full p-2 rounded-md"
             type="text"
             placeholder="Course Price "
             value={price}
@@ -93,17 +90,19 @@ const Addcourse = () => {
             accept="image/*"
             ref={fileInputRef}
             onChange={handleImageChange}
+            hidden
           />
-          <button>Submit</button>
+          <button className="bg-[#8B77E8] py-2 rounded-md text-white">Submit</button>
         </form>
       </div>
 
-      <div className="courseimige w-[40%] h-[50vh] px-20">
+      <div className="courseimige w-[50%] h-[60vh]   px-10 flex items-center justify-center">
         {image ? (
           <img
             src={URL.createObjectURL(image)}
             alt="Selected image"
             onClick={handleImageClick}
+            className="overflow-hidden w-full rounded-md "
           />
         ) : (
           <div className="default-image" onClick={handleImageClick}>

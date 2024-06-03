@@ -5,7 +5,9 @@ export const loginContext = createContext()
 
 const Logincontext = (props) => {
     const [login, setLogin] = useState(false)
-    const [user, setUser] = useState(null)
+    const [admin, setAdmin] = useState(null)
+    const [allcourse, setallcourse] = useState({})
+
 
     const userloggedin = async()=>{
         try {
@@ -30,21 +32,33 @@ const Logincontext = (props) => {
     const logedinuser = async()=>{
         try {
             const response = await axios.post("/user")
-            setUser(response.data.student.admin)
+            setAdmin(response.data.student.admin)
         } catch (error) {
             console.log(error);
-            setUser(null)
+            setAdmin(null)
+        }
+    }
+
+    const allcourses = async()=>{
+        try {
+            const response = await axios.get("/course/allcourses")
+            setallcourse(response.data)
+        } catch (error) {
+            console.log(error);
+            setallcourse(null)
         }
     }
    
+    
 
     useEffect(() => {
          userloggedin()
          logedinuser()
+         allcourses()
     }, [login])
 
     return (
-        <loginContext.Provider value={{ login, setLogin, user, setUser, userloggedout }}>
+        <loginContext.Provider value={{ login, setLogin, admin, setAdmin, userloggedout, allcourse, allcourses }}>
             {props.children}
         </loginContext.Provider>
     )
