@@ -78,19 +78,32 @@ exports.addcourseimage = catchAsyncErrors(async(req, res, next)=>{
 
 
 exports.addlecture = catchAsyncErrors(async(req, res, next)=>{
+    console.log(req.body);
+    console.log(req.files.lectureimage);
+    console.log(req.files.lecturevideo);
+
     const course = await courseModel.findById(req.params.id)
     const file = req.files.lecturevideo;
+    const file1 = req.files.lectureimage;
 
     const modifyFileName = `lecturevideo-${Date.now()}${path.extname(file.name)}`
     const {fileId , url} = await imagekit.upload({
         file : file.data,
         fileName : modifyFileName,
     })
+
+    const modifyFileName1 = `lecturevideo-${Date.now()}${path.extname(file.name)}`
+    const {fileId1 , url1} = await imagekit.upload({
+        file : file1.data,
+        fileName : modifyFileName1,
+    })
     lecturevideo = {fileId, url}
+    lectureimage = {fileId:fileId1, url:url1}
     const newlecture = await new lectureModel({
         lecturevideo,
         lecturename:req.body.lecturename,
         description:req.body.description,
+        lectureimage,
         coursename:course._id
     })
 

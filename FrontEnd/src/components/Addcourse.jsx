@@ -40,8 +40,8 @@ const Addcourse = () => {
   };
 
   return (
-    <div className="w-full h-screen flex p-20 gap-10 ">
-      <div className="courseform w-[50%]">
+    <div className="w-full h-screen flex p-20 gap-10 max-sm:flex-col-reverse max-sm:w-full ">
+      <div className="courseform w-[50%] max-sm:w-full">
         <div className="heading text-[#8B77E8] text-2xl mb-5 font-semibold">
           Add Course Details
         </div>
@@ -96,7 +96,7 @@ const Addcourse = () => {
         </form>
       </div>
 
-      <div className="courseimige w-[50%] h-[60vh]   px-10 flex items-center justify-center">
+      <div className="courseimige w-[50%] max-sm:w-full h-[60vh]   px-10 flex items-center justify-center">
         {image ? (
           <img
             src={URL.createObjectURL(image)}

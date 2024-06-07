@@ -5,37 +5,61 @@ import axios from "../api/Axios";
 const Updatecourse = () => {
   const { id } = useParams();
 
+  const [lecturename, setlecturename] = useState('');
+  const [description, setdescription] = useState('');
+  const [lecturevideo, setlecturevideo] = useState(null);
+  const [lectureimage, setlectureimage] = useState(null);
+
   const [alllecture, setalllectures] = useState([]);
-  // console.log(id);
 
   const allLectures = async () => {
     try {
       const { data } = await axios.get(`/course/details/${id}`);
-      // console.log(data.lectures);
       setalllectures(data.lectures);
-      // console.log(alllecture);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const uploadLecture = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("lectureimage", lectureimage);
+    formData.append("lecturename", lecturename);
+    formData.append("description", description);
+    formData.append("lecturevideo", lecturevideo);
+
+    try {
+      const { data } = await axios.post(`/course/addlecture/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     allLectures();
   }, []);
+
   return (
-    <div className="w-full p-20 relative">
+    <div className="w-full p-20 relative max-sm:p-4 ">
       <div className="showlectures-or-addlectures flex gap-3 items-center justify-between">
-        <h1 className="bg-[#e4ddff] text-[#8B77E8] py-1 px-2 rounded-md">
+        <h1 className="bg-[#ececf0] text-[#6a4cee] py-1 px-2 rounded-md">
           Lectures Added to Your Course
         </h1>
         <h1 className="bg-[#8B77E8] text-white px-2 py-1 rounded-md">
-          Add new Lectrue
+          Add new Lecture
         </h1>
       </div>
-      <div className="showlectrues-or-addlectrues py-5 flex gap-8">
-        <div className="lectures w-1/2 flex flex-col gap-3">
+      <div className="showlectures-or-addlectures py-5 flex gap-8 max-sm:flex-col-reverse max-sm:w-full">
+        <div className="lectures w-1/2 flex flex-col gap-3 max-sm:w-full">
           {alllecture &&
             alllecture.map((lecture, i) => (
-              <div className="video w-full h-[80px] bg-zinc-50 shadow-md flex p-2 rounded-md gap-2">
+              <div key={i} className="video w-full h-[80px] bg-zinc-50 shadow-md flex p-2 rounded-md gap-2">
                 <div className="videoimg w-1/3 h-full">
                   <img
                     className="w-full h-full object-cover"
@@ -55,13 +79,13 @@ const Updatecourse = () => {
               </div>
             ))}
         </div>
-        <div className="from-to-add-lectures w-1/2 bg-slate-500">
-          <form className="flex flex-col" action="">
-            <input type="text" placeholder="lecture No Or Title" />
-            <input type="text" placeholder="Lecture description" />
-            <input type="file" placeholder="Lecture Image" />
-            <input type="file" placeholder="lecture video" />
-            <button>Add Lectrue</button>
+        <div className="from-to-add-lectures w-1/2 bg-slate-50 shadow-lg max-sm:w-full rounded-md">
+          <form className="flex flex-col gap-2 p-2" onSubmit={uploadLecture}>
+            <input className="rounded-sm px-2 py-1" type="text" placeholder="Lecture No Or Title" value={lecturename} onChange={(e) => setlecturename(e.target.value)} />
+            <input className="rounded-sm px-2 py-1" type="text" placeholder="Lecture description" value={description} onChange={(e) => setdescription(e.target.value)} />
+            <input className="rounded-sm py-1" type="file" placeholder="Lecture Image"  onChange={(e) => setlectureimage(e.target.files[0])} />
+            <input className="rounded-sm py-1" type="file" placeholder="Lecture Video"  onChange={(e) => setlecturevideo(e.target.files[0])} />
+            <button type="submit">Add Lecture</button>
           </form>
         </div>
       </div>

@@ -25,7 +25,7 @@ router.get("/course/details/:id", isAuthenticated, coursedetails);
 router.post("/course/buyedcourse", isAuthenticated, buydecourse );
 
 
-router.post("/course/buynewcourse/", isAuthenticated, buynewcourse );
+router.post("/course/buynewcourse", isAuthenticated, buynewcourse );
 
 // router.get("/course/:id", isAuthenticated, buydecourse );
 

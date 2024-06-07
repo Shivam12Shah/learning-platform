@@ -8,7 +8,6 @@ const Logincontext = (props) => {
   const [admin, setAdmin] = useState(null);
   const [allcourse, setallcourse] = useState({});
   const [buyedcourse, setbuyedcourse] = useState();
-  
 
   const userloggedin = async () => {
     try {

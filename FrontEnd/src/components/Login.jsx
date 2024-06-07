@@ -7,6 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+  const [error, seterror] = useState("")
   const navigate = useNavigate()
 
   const {login, setLogin} = useContext(loginContext)
@@ -45,7 +46,8 @@ const Login = () => {
         setLogin(true)
         navigate("/")
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data.message);
+        seterror(error.response.data.message)
       }
     }
   };
@@ -65,6 +67,7 @@ const Login = () => {
           {errors.password && <p className='text-red-500 text-xs leading-none'>{errors.password}</p>}
           <button className='bg-[#8B77E8] text-white py-2 rounded-sm my-2' type="submit">Login</button>
         </form>
+        <p className='text-sm text-red-500'>{error}</p>
         <p className='text-xs'>Don't have an account <Link to='/register' className='text-blue-600'>Register</Link>  </p> 
       </div>
     </div>
