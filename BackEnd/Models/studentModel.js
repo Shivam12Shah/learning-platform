@@ -55,7 +55,13 @@ const studentModel = new mongoose.Schema({
     admin:{
         type:Boolean,
         default:false
-    }
+    },
+    coursebuy:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Course"
+        }
+    ]
 
 }, {
     timestamps:true
@@ -82,6 +88,6 @@ studentModel.methods.getJwtToken = function(){
 
 }
 
-const student = mongoose.model("users", studentModel)
+const student = mongoose.model("Users", studentModel)
 
 module.exports = student;   

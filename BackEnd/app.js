@@ -42,6 +42,7 @@ const fileUpload = require("express-fileupload");
 app.use(fileUpload());
 
 const { genratedErrors } = require("./middlewares/error");
+const { isAuthenticated } = require("./middlewares/auth");
 
 app.use("/", require("./routes/indexroute"));
 app.use("/", require("./routes/courseroute"));
@@ -49,30 +50,32 @@ app.use("/", require("./routes/courseroute"));
 
 
 var instance = new Razorpay({
-  key_id: 'rzp_test_gCbXuQ9aLwZbca',
-  key_secret: '5xAVagaHv7TP3rJXuptUodGM',
+  key_id: 'rzp_test_GG5OUnq85pmaQI',
+  key_secret: 'D9aSr9sGEuU6Bvgc3Lz0r6eO',
 });
 
 
-app.post("/create/orderId", function (req, res, next) {
+app.post("/create/orderId", isAuthenticated,function (req, res, next) {
+  // console.log(req.body.newprice);
 
-  console.log(req.body.amount);
   var options = {
-    amount: req.body.amount, // amount in the smallest currency unit
+    amount: req.body.newprice, // amount in the smallest currency unit
     currency: "INR",
     receipt: uuidv4(),
   };
+  console.log(options,req.body.newprice);
   instance.orders.create(options, function (err, order) {
-    console.log(order);
-    res.send(order);
+    console.log(order,err);
+    res.status(201).send(order);
   });
 });
 
-app.post("/api/payment/verify", (req, res) => {
+app.post("/api/payment/verify", isAuthenticated,(req, res) => {
+  console.log(req.body);
   const razorpayPaymentId = req.body.response.razorpay_payment_id;
   const razorpayOrderId = req.body.response.razorpay_order_id;
   const signature = req.body.response.razorpay_signature;
-  const secret = "5xAVagaHv7TP3rJXuptUodGM";
+  const secret = "D9aSr9sGEuU6Bvgc3Lz0r6eO";
   var {
     validatePaymentVerification,
     validateWebhookSignature,

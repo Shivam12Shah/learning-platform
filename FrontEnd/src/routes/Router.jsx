@@ -11,6 +11,7 @@ import Addcourse from "../components/Addcourse";
 import Updatecourse from "../components/Updatecourse";
 import Coursedetails from "../components/Coursedetails";
 import Dashboard from "../components/Dashboard";
+import ShowLecture from "../components/ShowLecture";
 
 const Router = () => {
   // const [auth, setauth] = useState(false);
@@ -36,11 +37,11 @@ const Router = () => {
         path="/courses"
         element={login ? <Courses /> : <Navigate to={`/login`} />}
       />
-        
-        <Route
-          path="/courses/:id"
-          element={login ? <Coursedetails /> : <Navigate to={`/login`} />}
-        />
+
+      <Route
+        path="/courses/:id"
+        element={login ? <Coursedetails /> : <Navigate to={`/login`} />}
+      />
       <Route
         path="/addcourse"
         element={login ? <Addcourse /> : <Navigate to={`/login`} />}
@@ -53,10 +54,8 @@ const Router = () => {
         path="/updatecourse/:id"
         element={admin ? <Updatecourse /> : <Navigate to={`/courses`} />}
       />
-       <Route
-        path="/dashboard"
-        element={<Dashboard /> }
-      />
+      <Route path="/dashboard" element={login ? <Dashboard /> : <Navigate to={`/login`} />} />
+      <Route path="/dashboard/course/:id" element={login ? <ShowLecture /> : <Navigate to={`/login`} />} />
     </Routes>
   );
 };

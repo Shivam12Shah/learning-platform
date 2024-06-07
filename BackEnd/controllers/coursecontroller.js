@@ -1,6 +1,7 @@
 
 const { catchAsyncErrors } = require("../middlewares/catchAsyncError");
 const courseModel = require("../Models/CourseModel")
+const userModel = require("../Models/studentModel")
 const lectureModel = require("../Models/lectureModel")
 const imagekit = require("../utils/imagekit").intiImagekit()
 const path = require("path")
@@ -44,6 +45,8 @@ exports.allcourses = catchAsyncErrors(async(req, res, next)=>{
 
 exports.coursedetails = catchAsyncErrors(async(req, res, next)=>{
     const course = await courseModel.findById(req.params.id).exec()
+    await course.populate("lectures")
+    await course.save()
     res.json(course)
 
 })
@@ -98,4 +101,23 @@ exports.addlecture = catchAsyncErrors(async(req, res, next)=>{
         success:true,
         message:"lecture video uploded succefully"
     })
+})
+
+exports.buydecourse = catchAsyncErrors(async(req, res, next)=>{
+    const user = await userModel.findById(req.id).populate("coursebuy")
+    res.json(user)
+})
+
+exports.buynewcourse = catchAsyncErrors(async(req, res, next)=>{
+    const user = await userModel.findById(req.id)
+    const course = await courseModel.findById(req.body.id)
+    user.coursebuy.push(course._id)
+    await user.save()
+    console.log(user);
+    res.json(user)
+})
+
+exports.paymenthandler = catchAsyncErrors(async(req, res, next)=>{
+    
+    res.json(user)
 })

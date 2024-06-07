@@ -39,8 +39,13 @@ const courseSchema = new mongoose.Schema({
             type:mongoose.Schema.Types.ObjectId,
             ref:"Lecture"
         }
+    ],
+    access:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Users"
+        }
     ]
-    
 },{timestamps:true})
 
 module.exports = mongoose.model("Course", courseSchema) 
