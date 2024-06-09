@@ -35,7 +35,11 @@ const Updatecourse = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log(data);
+      // console.log(data);
+      setlecturename('');
+      setdescription('');
+      lecturevideo.target.value = null
+      lectureimage.target.value = null
     } catch (error) {
       console.log(error);
     }

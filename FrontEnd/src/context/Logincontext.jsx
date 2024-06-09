@@ -8,6 +8,7 @@ const Logincontext = (props) => {
   const [admin, setAdmin] = useState(null);
   const [allcourse, setallcourse] = useState({});
   const [buyedcourse, setbuyedcourse] = useState();
+  const [axioserror, setaxioserror] = useState("");
 
   const userloggedin = async () => {
     try {
@@ -44,8 +45,9 @@ const Logincontext = (props) => {
       const response = await axios.get("/course/allcourses");
       setallcourse(response.data);
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.message);
       setallcourse(null);
+      setaxioserror(error.response.data.message);
     }
   };
 
@@ -54,13 +56,11 @@ const Logincontext = (props) => {
       const { data } = await axios.post("/course/buyedcourse");
       setbuyedcourse(data.coursebuy);
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.message);
+      // alert(error.response.data.message);
       setbuyedcourse(null);
     }
   };
-
-
- 
 
   useEffect(() => {
     userloggedin();
@@ -82,6 +82,7 @@ const Logincontext = (props) => {
         buyedcourse,
         accesscourse,
         setbuyedcourse,
+        axioserror,
       }}
     >
       {props.children}
