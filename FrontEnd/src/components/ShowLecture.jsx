@@ -7,6 +7,7 @@ const ShowLecture = () => {
   console.log(allLectures);
   const { id } = useParams();
   const [lecturevideo, setlecturevideo] = useState("");
+  const [lectureimage, setlectureimage] = useState("");
   const [lecturename, setlecturename] = useState("");
   const [description, setdescription] = useState("");
 
@@ -18,6 +19,7 @@ const ShowLecture = () => {
       setlecturevideo(data.lectures[0].lecturevideo.url);
       setlecturename(data.lectures[0].lecturename);
       setdescription(data.lectures[0].description);
+      setlectureimage(data.lectures[0].lectureimage.url);
     } catch (error) {
       console.log(error);
     }
@@ -25,6 +27,7 @@ const ShowLecture = () => {
 
   const changeLecture = (lecture)=>{
     setlecturevideo(lecture.lecturevideo.url);
+    setlectureimage(lecture.lectureimage.url);
     setlecturename(lecture.lecturename);
     setdescription(lecture.description);
 
@@ -50,13 +53,13 @@ const ShowLecture = () => {
       <div className="palylistdiv w-[40%] min-h-[50vh] p-2 flex flex-col gap-2  shadow-inner overflow-auto max-sm:w-full ">
         <h1 className="text-lg font-semibold text-[#8B77E8]">All Lecture</h1>
         {allLectures && allLectures.map((lecture, i) => (
-          <div onClick={()=>changeLecture(lecture)} key={i} className="palylist w-full min-h-[100px] bg-slate-500 p-2 rounded-md flex gap-4 max-sm:bg-red-400 max-sm:w-full">
+          <div onClick={()=>changeLecture(lecture)} key={i} className="palylist w-full h-[100px] bg-slate-50 p-2 rounded-md flex gap-4 max-sm:bg-slate-50 max-sm:w-full">
             <div className="videoimage w-[150px] h-full rounded-sm max-sm:w-[50%] max-sm:bg-slate-500">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQsfLxNcbVNWEPTeuSZ_-B1aiJjXC6n4QqeQ&s" alt="" />
+              <img className="w-full h-full object-cover bg-red-400" src={lectureimage} alt="" />
             </div>
             <div className="description">
-              <h1>Lecture Name</h1>
-              <p>lecture Description</p>
+              <h1>{lecturename}</h1>
+              <p className="text-xs">{description}</p>
             </div>
           </div>
         ))}

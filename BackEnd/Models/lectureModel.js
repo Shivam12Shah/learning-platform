@@ -18,8 +18,8 @@ const lectureSchema = new mongoose.Schema({
     lectureimage:{
         type:Object,
         default:{
-            fileId:'',
-            url:''
+            filedimg:'',
+            fildurl:''
         }
     },
     lecturevideo:{

@@ -1,8 +1,6 @@
 // SDK initialization
 
 var ImageKit = require("imagekit");
-
-
 exports.intiImagekit = function (){
 
     var imagekit = new ImageKit({
