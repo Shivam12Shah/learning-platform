@@ -14,7 +14,6 @@ exports.isAuthenticated = catchAsyncErrors(async (req, res, next) => {
     const { id } = jwt.verify(token, process.env.JWT_SECRECT);
     // console.log(id);
     req.id = id
-
     next()
 })
 

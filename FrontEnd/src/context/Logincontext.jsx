@@ -5,6 +5,7 @@ export const loginContext = createContext();
 
 const Logincontext = (props) => {
   const [login, setLogin] = useState(false);
+  const [user, setuser] = useState(null)
   const [admin, setAdmin] = useState(null);
   const [allcourse, setallcourse] = useState({});
   const [buyedcourse, setbuyedcourse] = useState();
@@ -24,6 +25,7 @@ const Logincontext = (props) => {
     try {
       await axios.get("/user/signout");
       setLogin(false);
+      setuser(null)
     } catch (error) {
       console.log(error);
       setLogin(true);
@@ -34,6 +36,8 @@ const Logincontext = (props) => {
     try {
       const response = await axios.post("/user");
       setAdmin(response.data.student.admin);
+      console.log(response.data.student);
+      setuser(response.data.student)
     } catch (error) {
       console.log(error);
       setAdmin(null);
@@ -83,6 +87,7 @@ const Logincontext = (props) => {
         accesscourse,
         setbuyedcourse,
         axioserror,
+        user  
       }}
     >
       {props.children}

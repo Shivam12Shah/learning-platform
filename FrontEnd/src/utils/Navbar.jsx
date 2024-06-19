@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <div className="w-full h-[60px] shadow-md flex text-[#8B77E8] items-center justify-between px-20 max-sm:w-full max-sm:bg-red-40 max-sm:px-5 max-sm:relative">
       {
-        menu ?<div className=" menu max-sm:w-full max-sm:bg-white max-sm:h-[100vh] max-sm:absolute max-sm:left-0 max-sm:top-[60px] max-sm:flex max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:text-xl max-sm:gap-4  p-10">
+        menu ?<div className=" menu max-sm:w-full max-sm:bg-white max-sm:h-[100vh] max-sm:absolute max-sm:left-0 max-sm:top-[60px] max-sm:flex max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:text-xl max-sm:gap-4  p-10 z-30">
             <Link className="max-sm:border-b-2 max-sm:w-full max-sm:text-center pb-2 border-[#8B77E8] border-t-2 pt-3" onClick={menuBar} to={`/`}>Home</Link>
         <Link className="max-sm:border-b-2 max-sm:w-full max-sm:text-center pb-2 border-[#8B77E8]" onClick={menuBar} to={`/about`}>About</Link>
         <Link className="max-sm:border-b-2 max-sm:w-full max-sm:text-center pb-2 border-[#8B77E8]" onClick={menuBar} to={`/courses`}>Courses</Link>
